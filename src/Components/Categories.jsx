@@ -1,3 +1,5 @@
+import { movies } from "../data";
+
 // Styles
 const styles = {
   ulStyles:
@@ -6,8 +8,25 @@ const styles = {
     "border border-white mr-2 mb-2 md:mb-0 bg-white text-sm px-2 py-1 rounded active:scale-95 transition-all hover:bg-transparent hover:text-white duration-200 cursor-pointer",
 };
 
-const Categories = () => {
-  return <ul className={styles.ulStyles}></ul>;
+const categories = [
+  "All Movies",
+  ...new Set(movies.flatMap((movie) => movie.genres)),
+];
+
+const Categories = (props) => {
+  return (
+    <ul className={styles.ulStyles}>
+      {categories.map((category, index) => (
+        <li
+          onClick={props.filterMovies.bind(null, category)}
+          className={styles.liStyles}
+          key={index}
+        >
+          {category}
+        </li>
+      ))}
+    </ul>
+  );
 };
 
 export default Categories;
